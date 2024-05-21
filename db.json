@@ -1,0 +1,12 @@
+{
+    "responses": [
+      {
+        "id": 1,
+        "message": {
+          "role": "assistant",
+          "content": "This is a mock response from ChatGPT."
+        }
+      }
+    ]
+  }
+  
