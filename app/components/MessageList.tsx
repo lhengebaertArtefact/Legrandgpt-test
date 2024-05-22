@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface Message {
   user: string;
@@ -11,6 +11,18 @@ interface MessageListProps {
 }
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="flex-grow overflow-y mb-4 pb-2 flex flex-col">
       {messages.map((msg, index) => (
@@ -23,6 +35,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
           }`}
         >
           <strong>{msg.user} :</strong> {msg.text}
+          <div ref={messagesEndRef} style={{ float: "left", clear: "both" }} />
         </div>
       ))}
     </div>
