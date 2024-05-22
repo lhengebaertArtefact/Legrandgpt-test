@@ -22,7 +22,7 @@ const ChatWindow: React.FC = () => {
   };
 
   return (
-    <div className="w-3/5 mx-auto border p-4">
+    <div className="w-3/5 mx-auto border p-4 flex flex-col flex-grow relative bg-stone-800">
       <MessageList messages={messages} />
       <MessageInput addMessage={addMessage} />
     </div>
