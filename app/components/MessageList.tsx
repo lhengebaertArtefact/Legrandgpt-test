@@ -16,13 +16,13 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
       {messages.map((msg, index) => (
         <div
           key={index}
-          className={`mb-2 p-8 rounded-[50px] max-w-xs text-2xl ${
+          className={`mb-2 p-8 rounded-[50px] max-w-4xl text-2xl ${
             msg.user === "User"
-              ? "bg-stone-600 self-end"
-              : "bg-stone-400 self-start"
+              ? "bg-neutral-700 self-end"
+              : "bg-neutral-500 self-start"
           }`}
         >
-          <strong>{msg.user}:</strong> {msg.text}
+          <strong>{msg.user} :</strong> {msg.text}
         </div>
       ))}
     </div>
