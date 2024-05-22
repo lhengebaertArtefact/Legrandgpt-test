@@ -32,7 +32,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
           className={`mb-2 p-8 rounded-[50px] max-w-4xl text-2xl ${
             msg.user === "User"
               ? "bg-neutral-700 self-end shadow-xl shadow-slate-950"
-              : "bg-neutral-500 self-start shadow-xl shadow-slate-500"
+              : "bg-neutral-500 self-start shadow-lg shadow-slate-500"
           }`}
           initial={
             msg.user === "User"
@@ -40,6 +40,11 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
               : { x: -200, opacity: 0 }
           }
           animate={{ x: 0, opacity: 1 }}
+          transition={
+            msg.user !== "User"
+              ? { delay: 1, type: "spring", stiffness: 100 }
+              : { delay: 0, type: "spring", stiffness: 100 }
+          }
         >
           <strong>{msg.user} :</strong> {msg.text}
           <div ref={messagesEndRef} />
