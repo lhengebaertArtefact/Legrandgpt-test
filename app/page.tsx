@@ -1,10 +1,18 @@
 import ChatWindows from "./components/ChatWindows";
+import RegisterForm from "./components/authentication/RegisterForm";
+import LoginForm from "./components/authentication/LoginForm";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions as any);
+
+  if (session) redirect("/dashboard");
   return (
     <main className="flex min-h-screen flex-col items-center p-24 border">
-      <h1>ChatGPT Interface</h1>
-      <ChatWindows />
+      {/* <ChatWindows /> */}
+      <LoginForm />
     </main>
   );
 }

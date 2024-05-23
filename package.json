@@ -10,12 +10,16 @@
     "start:mock-api": "json-server --watch db.json --port 4000"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "framer-motion": "^11.2.6",
+    "mongoose": "^8.4.0",
     "next": "14.2.3",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
