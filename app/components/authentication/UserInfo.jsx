@@ -8,16 +8,18 @@ export default function UserInfo() {
 
   return (
     <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-8 bg-zince-300/10 flex flex-col gap-2 my-6">
+      <div className="p-8 bg-zince-300/10 flex flex-col gap-2 my-6 w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/5">
         <div>
-          Name: <span className="font-bold">{session?.user?.name}</span>
+          Name:{" "}
+          <span className="font-bold p-5 text-xl">{session?.user?.name}</span>
         </div>
         <div>
-          Email: <span className="font-bold">{session?.user?.email}</span>
+          Email:{" "}
+          <span className="font-bold p-5 text-xl">{session?.user?.email}</span>
         </div>
         <button
           onClick={() => signOut()}
-          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
+          className="bg-red-500 text-white font-bold px-8 py-5 mt-3 text-xl"
         >
           Log Out
         </button>

@@ -43,13 +43,13 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="Email"
-            className="p-5 text-lg border rounded"
+            className="p-5 text-lg border rounded text-black"
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
-            className="p-5 text-lg border rounded"
+            className="p-5 text-lg border rounded text-black"
           />
           <button className="bg-green-600 text-white font-bold cursor-pointer px-8 py-5 text-lg">
             Login

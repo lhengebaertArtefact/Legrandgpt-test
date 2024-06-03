@@ -36,7 +36,7 @@ export default function RegisterForm() {
       //   return;
       // }
 
-      const res = await fetch("api/register", {
+      const res = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,29 +62,32 @@ export default function RegisterForm() {
 
   return (
     <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
-        <h1 className="text-xl font-bold my-4">Register</h1>
+      <div className="p-5 rounded-lg border-t-4 border-green-400 w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/5">
+        <h1 className="text-2xl font-bold my-4">Register</h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-3 text-black"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 ">
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Full Name"
+            className="p-5 text-lg border rounded text-black"
+            autoComplete="name"
           />
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="Email"
+            className="p-5 text-lg border rounded text-black"
+            autoComplete="email"
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
+            className="p-5 text-lg border rounded text-black"
+            autoComplete="password"
           />
-          <button className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2">
+          <button className="bg-green-600 text-white font-bold cursor-pointer px-8 py-5 text-lg">
             Register
           </button>
 
@@ -94,7 +97,7 @@ export default function RegisterForm() {
             </div>
           )}
 
-          <Link className="text-sm mt-3 text-right" href={"/"}>
+          <Link className="text-lg mt-3 text-right" href={"/"}>
             Already have an account? <span className="underline">Login</span>
           </Link>
         </form>
