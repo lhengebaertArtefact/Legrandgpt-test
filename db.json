@@ -1,12 +1,25 @@
 {
-    "responses": [
-      {
-        "id": 1,
-        "message": {
+  "conversations": [
+    {
+      "id": "1",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hello, how are you?"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm good, thank you! How can I assist you?"
+        },
+        {
+          "role": "user",
+          "content": "bonjour"
+        },
+        {
           "role": "assistant",
           "content": "This is a mock response from ChatGPT."
         }
-      }
-    ]
-  }
-  
+      ]
+    }
+  ]
+}

@@ -2,7 +2,10 @@
 import React, { useState } from "react";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
-import { sendMessageToChatGPT } from "../services/chatgptApi";
+import {
+  sendMessageToChatGPT,
+  addMessageToConversation,
+} from "../services/chatgptApi";
 
 interface Message {
   user: string;
@@ -11,14 +14,21 @@ interface Message {
 
 const ChatWindow: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [currentConversationId, setCurrentConversationId] =
+    useState<string>("1");
 
   const addMessage = async (message: Message) => {
     setMessages((prevMessages) => [...prevMessages, message]);
+    await addMessageToConversation(currentConversationId, "user", message.text);
+
     const response = await sendMessageToChatGPT(message.text);
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { user: "ChatGPT", text: response },
-    ]);
+    const botMessage = { user: "ChatGPT", text: response };
+    setMessages((prevMessages) => [...prevMessages, botMessage]);
+    await addMessageToConversation(
+      currentConversationId,
+      "assistant",
+      response
+    );
   };
 
   return (

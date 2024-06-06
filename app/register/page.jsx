@@ -1,12 +1,19 @@
 import RegisterForm from "../components/authentication/RegisterForm";
-import { getServerSession } from "next-auth";
+import { verifyToken } from "../utils/auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import cookies from "next-cookies";
 
-export default async function Register() {
-  const session = await getServerSession(authOptions);
+export default async function Register(ctx) {
+  const { token } = cookies(ctx);
 
-  if (session) redirect("/dashboard");
+  if (token) {
+    try {
+      await verifyToken(token);
+      redirect("/dashboard");
+    } catch (err) {
+      console.error("Invalid token:", err);
+    }
+  }
 
   return <RegisterForm />;
 }
