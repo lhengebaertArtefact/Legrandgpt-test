@@ -28,7 +28,7 @@ export const sendMessageToChatGPT = async (
       throw new Error("No mock responses found");
     }
 
-    // Retourner une réponse simulée (vous pouvez adapter cette partie selon vos besoins)
+    // Retourner une réponse simulée
     return "This is a mock response from ChatGPT.";
   } catch (error) {
     console.error("Error communicating with mock API:", error);

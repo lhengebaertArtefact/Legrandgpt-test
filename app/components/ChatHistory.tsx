@@ -12,22 +12,25 @@ interface Conversation {
 
 interface ChatHistoryProps {
   history: Conversation[];
+  loadConversation: (conversationId: string) => void; // Ajout de la fonction de chargement
 }
 
-const ChatHistory: React.FC<ChatHistoryProps> = ({ history }) => {
+const ChatHistory: React.FC<ChatHistoryProps> = ({
+  history,
+  loadConversation,
+}) => {
   return (
     <div>
       <h3>Chat History</h3>
       {history.map((conversation) => (
-        <div key={conversation.id}>
+        <div
+          key={conversation.id}
+          onClick={() => loadConversation(conversation.id)}
+          className="cursor-pointer"
+        >
           <p>
             <strong>Conversation {conversation.id}</strong>
           </p>
-          {conversation.messages.map((msg, index) => (
-            <p key={index}>
-              <strong>{msg.role}</strong>: {msg.content}
-            </p>
-          ))}
         </div>
       ))}
     </div>

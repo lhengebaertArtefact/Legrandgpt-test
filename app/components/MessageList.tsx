@@ -29,7 +29,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
       {messages.map((msg, index) => (
         <motion.div
           key={index}
-          className={`mb-2 p-8 rounded-[50px] max-w-4xl text-2xl ${
+          className={`mb-8 p-4 rounded-[50px] max-w-4xl text-lg ${
             msg.user === "User"
               ? "bg-neutral-700 self-end shadow-xl shadow-slate-950"
               : "bg-neutral-500 self-start shadow-lg shadow-slate-500"

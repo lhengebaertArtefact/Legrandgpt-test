@@ -20,19 +20,19 @@ const MessageInput: React.FC<MessageInputProps> = ({ addMessage }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="absolute bottom-0 left-0 right-0 p-[25px] m-4 bg-stone-700 flex rounded-[50px]"
+      className="absolute bottom-0 left-0 right-0 p-4 m-4 bg-stone-700 flex rounded-[50px]"
     >
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="flex-grow p-2 text-4xl text-white bg-stone-700 focus:outline-none focus:ring-0"
+        className="flex-grow text-lg text-white bg-stone-700 focus:outline-none focus:ring-0"
         placeholder="Type your message..."
       />
-      <button type="submit" className="p-2 text-white ">
+      <button type="submit" className="text-white ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 text-white"
+          className="h-5 w-5 text-white"
           viewBox="0 0 24 24"
           fill="currentColor"
         >
