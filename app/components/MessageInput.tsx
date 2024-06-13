@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import { Message } from "../models/types";
 
 interface MessageInputProps {
-  addMessage: (message: { user: string; text: string }) => void;
+  addMessage: (message: Message) => void;
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({ addMessage }) => {
@@ -13,7 +14,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ addMessage }) => {
     if (!input.trim()) return;
 
     // Appeler addMessage avec le message de l'utilisateur
-    addMessage({ user: "User", text: input });
+    addMessage({ speaker: "User", text: input });
     setInput("");
   };
 

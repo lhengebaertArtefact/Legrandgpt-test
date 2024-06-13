@@ -5,7 +5,6 @@ export default function Dashboard() {
   return (
     <div>
       <UserInfo />
-      <ChatWindow />
     </div>
   );
 }

@@ -1,11 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-
-interface Message {
-  user: string;
-  text: string;
-}
+import { Message } from "../models/types";
 
 interface MessageListProps {
   messages: Message[];
@@ -30,23 +26,23 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
         <motion.div
           key={index}
           className={`mb-8 p-4 rounded-[50px] max-w-4xl text-lg ${
-            msg.user === "User"
+            msg.speaker === "User"
               ? "bg-neutral-700 self-end shadow-xl shadow-slate-950"
               : "bg-neutral-500 self-start shadow-lg shadow-slate-500"
           }`}
           initial={
-            msg.user === "User"
+            msg.speaker === "User"
               ? { x: 200, opacity: 0 }
               : { x: -200, opacity: 0 }
           }
           animate={{ x: 0, opacity: 1 }}
           transition={
-            msg.user !== "User"
+            msg.speaker !== "User"
               ? { delay: 1, type: "spring", stiffness: 100 }
               : { delay: 0, type: "spring", stiffness: 100 }
           }
         >
-          <strong>{msg.user} :</strong> {msg.text}
+          <strong>{msg.speaker} :</strong> {msg.text}
           <div ref={messagesEndRef} />
         </motion.div>
       ))}

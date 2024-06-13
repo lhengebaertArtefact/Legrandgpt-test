@@ -1,14 +1,6 @@
+import { Conversation } from "../models/types";
+
 const API_URL = "http://localhost:4000/conversations";
-
-export interface Message {
-  role: string;
-  content: string;
-}
-
-export interface Conversation {
-  id: string;
-  messages: Message[];
-}
 
 export const sendMessageToChatGPT = async (
   message: string
@@ -60,8 +52,8 @@ export const getChatHistory = async (): Promise<Conversation[]> => {
 
 export const addMessageToConversation = async (
   conversationId: string,
-  role: string,
-  content: string
+  speaker: string,
+  text: string
 ): Promise<void> => {
   try {
     const response = await fetch(`${API_URL}/${conversationId}`, {
@@ -72,7 +64,7 @@ export const addMessageToConversation = async (
     });
 
     const conversation: Conversation = await response.json();
-    conversation.messages.push({ role, content });
+    conversation.messages.push({ speaker, text });
 
     await fetch(`${API_URL}/${conversationId}`, {
       method: "PUT",

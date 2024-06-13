@@ -1,20 +1,11 @@
 import React from "react";
-
-interface Message {
-  role: string;
-  content: string;
-}
-
-interface Conversation {
-  id: string;
-  messages: Message[];
-}
+import { Conversation } from "../models/types";
 
 interface ChatHistoryProps {
   history: Conversation[];
   loadConversation: (conversationId: string) => void; // fonction de chargement
   newConversation: () => void; // fonction pour créer une nouvelle conversation
-  currentConversationId?: string; // Ajout de l'ID de la conversation actuelle
+  currentConversationId: string | null; // Ajout de l'ID de la conversation actuelle
   deleteConversation: (conversationId: string) => void; // Fonction pour supprimer une conversation
 }
 
