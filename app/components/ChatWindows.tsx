@@ -41,10 +41,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ conversationId }) => {
                 text: msg.content,
               }))
             );
+          } else {
+            setMessages([]); // Si aucune conversation trouvée, initialiser avec une conversation vide
           }
         } catch (error) {
           console.error("Error fetching conversation:", error);
         }
+      } else {
+        setMessages([]); // Initialiser avec une conversation vide si aucun conversationId
       }
     };
 
@@ -72,7 +76,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ conversationId }) => {
   };
 
   return (
-    <div className="w-3/5 mx-auto p-4 flex flex-col flex-grow relative bg-neutral-800 pb-[200px]">
+    <div className="w-full mx-auto p-4 flex flex-col flex-grow relative bg-neutral-800 pb-[200px]">
       <MessageList messages={messages} />
       <MessageInput addMessage={addMessage} />
     </div>

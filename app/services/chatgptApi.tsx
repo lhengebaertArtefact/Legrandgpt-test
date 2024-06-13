@@ -28,7 +28,7 @@ export const sendMessageToChatGPT = async (
       throw new Error("No mock responses found");
     }
 
-    // Retourner une réponse simulée
+    // Retourner une réponse mock de chatgpt
     return "This is a mock response from ChatGPT.";
   } catch (error) {
     console.error("Error communicating with mock API:", error);
@@ -83,6 +83,52 @@ export const addMessageToConversation = async (
     });
   } catch (error) {
     console.error("Error adding message to conversation:", error);
+    throw error;
+  }
+};
+
+export const createNewConversation = async (): Promise<Conversation> => {
+  try {
+    const newConv = {
+      id: new Date().getTime().toString(), // Utiliser un timestamp comme ID unique
+      messages: [],
+    };
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newConv),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create new conversation");
+    }
+
+    return newConv;
+  } catch (error) {
+    console.error("Error creating new conversation:", error);
+    throw error;
+  }
+};
+
+export const deleteConversation = async (
+  conversationId: string
+): Promise<void> => {
+  try {
+    const response = await fetch(`${API_URL}/${conversationId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete conversation");
+    }
+  } catch (error) {
+    console.error("Error deleting conversation:", error);
     throw error;
   }
 };
