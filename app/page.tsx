@@ -30,38 +30,31 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>(DEFAULT_MESSAGES);
 
   useEffect(() => {
-    fetchData();
-  }, [currentConversationId]);
-
-  const fetchData = async () => {
-    try {
-      const data = await getChatHistory();
-      setHistory(data);
-      if (currentConversationId) {
-        const conversation = data.find(
-          (conv) => conv.id === currentConversationId
-        );
-        if (conversation) {
-          setMessages(
-            conversation.messages.map((msg) => ({
-              speaker: msg.speaker === USER_ROLE ? USER_NAME : ASSISTANT_NAME,
-              text: msg.text,
-            }))
-          );
-        } else {
-          setMessages([]);
-        }
-      } else {
-        setMessages([]);
+    const fetchHistory = async () => {
+      try {
+        const data = await getChatHistory();
+        setHistory(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setMessages([]);
-    }
-  };
+    };
+
+    fetchHistory();
+  }, []);
 
   const loadConversation = (conversationId: string) => {
     setCurrentConversationId(conversationId);
+    const conversation = history.find((conv) => conv.id === conversationId);
+    if (conversation) {
+      setMessages(
+        conversation.messages.map((msg) => ({
+          speaker: msg.speaker === USER_ROLE ? USER_NAME : ASSISTANT_NAME,
+          text: msg.text,
+        }))
+      );
+    } else {
+      setMessages([]);
+    }
   };
 
   const newConversation = async () => {
@@ -87,23 +80,27 @@ export default function Home() {
     }
   };
 
-  const addMessage = async (message: { speaker: string; text: string }) => {
-    if (currentConversationId) {
-      setMessages((prevMessages) => [...prevMessages, message]);
-      await addMessageToConversation(
-        currentConversationId,
-        USER_ROLE,
-        message.text
-      );
+  const addMessage = async (message: Message) => {
+    try {
+      if (currentConversationId) {
+        await addMessageToConversation(
+          currentConversationId,
+          USER_ROLE,
+          message.text
+        );
+        setMessages((prevMessages) => [...prevMessages, message]);
 
-      const response = await sendMessageToChatGPT(message.text);
-      const botMessage = { speaker: ASSISTANT_NAME, text: response };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
-      await addMessageToConversation(
-        currentConversationId,
-        ASSISTANT_ROLE,
-        response
-      );
+        const response = await sendMessageToChatGPT(message.text);
+        const botMessage = { speaker: ASSISTANT_NAME, text: response };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+        await addMessageToConversation(
+          currentConversationId,
+          ASSISTANT_ROLE,
+          response
+        );
+      }
+    } catch (error) {
+      console.error("error adding message", error);
     }
   };
 
