@@ -1,6 +1,8 @@
 export interface Message {
     speaker: string;
     text: string;
+    isNew?: boolean;
+
   }
   
   export interface Conversation {

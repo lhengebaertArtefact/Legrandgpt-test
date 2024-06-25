@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div>
+          <div className="h-screen">
             <header className="p-4 border-b">
               <ThemeToggleButton />
             </header>

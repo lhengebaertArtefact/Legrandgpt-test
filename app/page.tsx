@@ -19,6 +19,7 @@ import {
   DEFAULT_MESSAGES,
 } from "./models/constants";
 import { Conversation, Message } from "./models/types";
+import ScrollTest from "./components/ScrollTest";
 
 export default function Home() {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function Home() {
         conversation.messages.map((msg) => ({
           speaker: msg.speaker === USER_ROLE ? USER_NAME : ASSISTANT_NAME,
           text: msg.text,
+          isNew: false, // Marquer les messages existants comme non nouveaux
         }))
       );
     } else {
@@ -88,10 +90,15 @@ export default function Home() {
           USER_ROLE,
           message.text
         );
-        setMessages((prevMessages) => [...prevMessages, message]);
+        const newMessage = { ...message, isNew: true };
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
 
         const response = await sendMessageToChatGPT(message.text);
-        const botMessage = { speaker: ASSISTANT_NAME, text: response };
+        const botMessage = {
+          speaker: ASSISTANT_NAME,
+          text: response,
+          isNew: true,
+        };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
         await addMessageToConversation(
           currentConversationId,
@@ -105,9 +112,9 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen">
+    <main className="flex h-[calc(100vh-65px)] overflow-hidden">
       {/* Barre latérale */}
-      <div className="w-1/4 border-r p-4">
+      <div className="w-1/4 border-r p-4 overflow-y-auto h-full">
         <ChatHistory
           history={history}
           loadConversation={loadConversation}
@@ -117,7 +124,7 @@ export default function Home() {
         />
       </div>
       {/* Chatbot */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
         {currentConversationId ? (
           <ChatWindow messages={messages} addMessage={addMessage} />
         ) : (
